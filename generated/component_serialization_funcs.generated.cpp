@@ -1,4 +1,4 @@
-#include <core/stl/vector.hpp>
+#include <core/atl/vector.hpp>
 #include <core/typeid.hpp>
 #include <engine/ecs/component_container.hpp>
 #include <engine/ecs/component_serialization.hpp>
@@ -26,8 +26,8 @@
 #endif // ANTON_WITH_EDITOR
 
 namespace anton_engine {
-    extern "C" GAME_API anton_stl::Vector<Component_Serialization_Funcs>& get_component_serialization_functions() {
-        static anton_stl::Vector<Component_Serialization_Funcs> serialization_funcs{anton_stl::variadic_construct,
+    extern "C" GAME_API atl::Vector<Component_Serialization_Funcs>& get_component_serialization_functions() {
+        static atl::Vector<Component_Serialization_Funcs> serialization_funcs{atl::variadic_construct,
             Component_Serialization_Funcs{type_identifier<asteroids_game::Asteroid>(), &Component_Container<asteroids_game::Asteroid>::serialize, &Component_Container<asteroids_game::Asteroid>::deserialize},
             Component_Serialization_Funcs{type_identifier<asteroids_game::Projectile>(), &Component_Container<asteroids_game::Projectile>::serialize, &Component_Container<asteroids_game::Projectile>::deserialize},
             Component_Serialization_Funcs{type_identifier<asteroids_game::Spaceship>(), &Component_Container<asteroids_game::Spaceship>::serialize, &Component_Container<asteroids_game::Spaceship>::deserialize},
