@@ -1,14 +1,17 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(GameEngine_Game)
+project(anton_engine_game)
 enable_language(CXX)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 17)
 
-set(GAME_ENGINE_DIRECTORY "C:/Users/An0num0us/Documents/GameEngine")
-add_subdirectory(${GAME_ENGINE_DIRECTORY} "${CMAKE_CURRENT_BINARY_DIR}/GameEngine")
-add_library(${PROJECT_NAME} SHARED)
-target_link_libraries(${PROJECT_NAME} anton_engine)
+if(NOT DEFINED ANTON_ENGINE_SRC_DIR)
+    message(FATAL "ANTON_ENGINE_SRC_DIR not set.")
+endif()
+
+add_subdirectory(${ANTON_ENGINE_SRC_DIR} "${CMAKE_CURRENT_BINARY_DIR}/GameEngine")
+add_library(anton_engine_game SHARED)
+target_link_libraries(anton_engine_game anton_engine)
 
 add_subdirectory(generated)
 add_subdirectory(scripts)
@@ -32,13 +35,13 @@ elseif(MSVC)
 endif()
 
 
-target_compile_definitions(${PROJECT_NAME} 
+target_compile_definitions(anton_engine_game 
     PRIVATE 
     ENGINE_API=${GAME_DLL_IMPORT}
     GAME_API=${GAME_DLL_EXPORT}
 )
 
-set_target_properties(${PROJECT_NAME} 
+set_target_properties(anton_engine_game 
     PROPERTIES 
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
     RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_BINARY_DIR}/bin"
@@ -49,7 +52,7 @@ set_target_properties(${PROJECT_NAME}
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
     ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${CMAKE_BINARY_DIR}/bin"
     ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${CMAKE_BINARY_DIR}/bin"
-    RUNTIME_OUTPUT_NAME_DEBUG "GameEngine_Gamed"
-    LIBRARY_OUTPUT_NAME_DEBUG "GameEngine_Gamed"
-    ARCHIVE_OUTPUT_NAME_DEBUG "GameEngine_Gamed"
+    RUNTIME_OUTPUT_NAME_DEBUG "anton_engine_game_d"
+    LIBRARY_OUTPUT_NAME_DEBUG "anton_engine_game_d"
+    ARCHIVE_OUTPUT_NAME_DEBUG "anton_engine_game_d"
 )
